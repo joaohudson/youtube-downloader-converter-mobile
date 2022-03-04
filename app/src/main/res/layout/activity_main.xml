@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/text_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginEnd="100dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/darkturquoise"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="90dp"
+        android:layout_marginEnd="40dp"
+        android:text="@string/instruction"
+        android:textColor="@color/darkturquoise"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.563"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_title" />
+
+    <EditText
+        android:id="@+id/text_input"
+        android:layout_width="match_parent"
+        android:layout_height="24dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="40dp"
+        android:background="@color/dark_gray"
+        android:textAlignment="viewStart"
+        android:textColor="@color/darkturquoise"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_sub"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/btn_download"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/dark_gray"
+        android:text="@string/download"
+        android:textColor="@color/darkturquoise"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input" />
+
+    <RadioGroup
+        android:id="@+id/radio_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:checkedButton="@id/radio_btn_mp4"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@+id/btn_download"
+        app:layout_constraintTop_toBottomOf="@+id/text_input">
+
+        <RadioButton
+            android:id="@+id/radio_btn_mp4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="mp4"
+            android:textColor="@color/darkturquoise"
+            android:textSize="14sp" />
+
+        <RadioButton
+            android:id="@+id/radio_btn_mp3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="mp3"
+            android:textColor="@color/darkturquoise"
+            android:textSize="14sp" />
+    </RadioGroup>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
