@@ -1,5 +1,5 @@
-<resources>
-    <string name="app_name">YouTube Donwloader\nand\nConverter</string>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name" tools:ignore="MissingTranslation">YouTube Downloader\nand\nConverter</string>
     <string name="download">Download</string>
     <string name="instruction">Past the video(or playlist) link below</string>
     <string name="downloading">Downloading…</string>
