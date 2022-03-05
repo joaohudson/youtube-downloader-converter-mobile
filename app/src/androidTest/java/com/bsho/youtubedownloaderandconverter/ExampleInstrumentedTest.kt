@@ -1,4 +1,4 @@
-package com.bsho.youtubedonwloaderandconverter
+package com.bsho.youtubedownloaderandconverter
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
