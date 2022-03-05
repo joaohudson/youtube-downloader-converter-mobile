@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="download">Baixar</string>
+    <string name="instruction">Cole o link do video (ou playlist) abaixo</string>
+    <string name="downloading">Baixando…</string>
+    <string name="invalid_url">Link inválido!</string>
+</resources>

@@ -6,15 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.util.JsonReader
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.view.View
+import android.widget.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.StringReader
+import java.lang.Exception
 import java.net.URL
 import java.util.*
 
@@ -31,18 +31,54 @@ class MainActivity : AppCompatActivity(){
 
         val radioType = findViewById<RadioGroup>(R.id.radio_type)
 
+        val progressBar = findViewById<ProgressBar>(R.id.progressBar)
+
         val downloadBtn = findViewById<Button>(R.id.btn_download)
         downloadBtn.setOnClickListener{
             val url = urlField.text.toString()
             val radioChecked = findViewById<RadioButton>(radioType.checkedRadioButtonId)
             val type = radioChecked.text.toString()
+            //set loading state
+            downloadBtn.isEnabled = false
+            progressBar.visibility = View.VISIBLE
+
             CoroutineScope(Dispatchers.IO).launch {
-                val videos = if (url.contains("/playlist?"))  downloadPlaylist(url) else listOf(url)
-                for(video in videos){
-                    downloadInBackground(video, type)
+                try {
+                    val videos =
+                        if (url.contains("/playlist?")) downloadPlaylist(url) else listOf(url)
+                    val filenames = ArrayList<String>(videos.size)
+
+                    for (video in videos) {
+                        filenames.add(downloadFilename(video))
+                    }
+
+                    withContext(Dispatchers.Main) {
+                        val end = videos.size - 1
+                        for (i in 0..end) {
+                            val video = videos[i]
+                            val filename = filenames[i]
+                            download(video, filename, type)
+                        }
+                        //set no loading state
+                        downloadBtn.isEnabled = true
+                        progressBar.visibility = View.INVISIBLE
+                    }
+                }
+                catch(e : Exception){
+                    withContext(Dispatchers.Main){
+                        val error = getString(R.string.invalid_url)
+                        showError(error, progressBar)
+                        //set no loading state
+                        downloadBtn.isEnabled = true
+                        progressBar.visibility = View.INVISIBLE
+                    }
                 }
             }
         }
+    }
+
+    fun showError(error : String, view : View){
+        Snackbar.make(view, error, 1000).show()
     }
 
     fun downloadPlaylist(ytUrl: String) : List<String>{
@@ -62,15 +98,6 @@ class MainActivity : AppCompatActivity(){
     fun downloadFilename(ytUrl: String) : String{
         val url = "$API_BASE_URL/name?url=$ytUrl"
         return URL(url).readText()
-    }
-
-    fun downloadInBackground(url: String, type: String){
-        CoroutineScope(Dispatchers.IO).launch {
-            val filename = downloadFilename(url)
-            withContext(Dispatchers.Main){
-                download(url, filename, type)
-            }
-        }
     }
 
     fun download(ytUrl: String, filename: String, type: String){
