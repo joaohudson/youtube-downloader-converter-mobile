@@ -1,6 +1,7 @@
 package com.example.youtubedonwloaderandconverter
 
 import android.app.DownloadManager
+import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -28,6 +29,10 @@ class MainActivity : AppCompatActivity(){
         supportActionBar!!.title = ""
 
         val urlField = findViewById<EditText>(R.id.text_input)
+        val extras = intent.extras
+        if(extras != null){
+            urlField.setText(extras.getString(Intent.EXTRA_TEXT))
+        }
 
         val radioType = findViewById<RadioGroup>(R.id.radio_type)
 
