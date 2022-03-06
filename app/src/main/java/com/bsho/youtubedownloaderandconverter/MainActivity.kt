@@ -29,10 +29,6 @@ class MainActivity : AppCompatActivity(){
         supportActionBar!!.title = ""
 
         val urlField = findViewById<EditText>(R.id.text_input)
-        val extras = intent.extras
-        if(extras != null){
-            urlField.setText(extras.getString(Intent.EXTRA_TEXT))
-        }
 
         val radioType = findViewById<RadioGroup>(R.id.radio_type)
 
@@ -79,6 +75,21 @@ class MainActivity : AppCompatActivity(){
                     }
                 }
             }
+        }
+    }
+
+    override fun onNewIntent(newIntent: Intent?) {
+        super.onNewIntent(newIntent)
+        intent = newIntent
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val urlField = findViewById<EditText>(R.id.text_input)
+        val extras = intent.extras
+        if(extras != null){
+            val link = extras.getString(Intent.EXTRA_TEXT)
+            urlField.setText(link ?: "")
         }
     }
 
